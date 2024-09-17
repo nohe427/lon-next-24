@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "lon-next"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {
+    "postgres": {
+      "localConnectionString": "postgresql://postgres:next2024@localhost:5432?sslmode=disable"
+    }
+  }
+}

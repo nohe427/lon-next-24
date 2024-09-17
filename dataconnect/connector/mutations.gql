@@ -1,0 +1,19 @@
+mutation CreateStoreItem(
+  $ref: String!
+  $name: String!
+  $aisle: Int!
+  $cat: String!
+  $msrp: Float!
+  $embeddingAttr: String!
+) @auth(level: PUBLIC) {
+  storeItem_insert(
+    data: {
+      ref: $ref
+      name: $name
+      aisle: $aisle
+      category: $cat
+      msrp: $msrp
+      descEmbedding_embed: { model: "textembedding-gecko@003", text: $embeddingAttr }
+    }
+  )
+}

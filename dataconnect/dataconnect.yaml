@@ -1,0 +1,11 @@
+specVersion: "v1alpha"
+serviceId: "lon-next"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "lon"
+      cloudSql:
+        instanceId: "lon-next"
+connectorDirs: ["./connector"]
