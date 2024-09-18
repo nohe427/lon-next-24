@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.customerAgent = exports.restaurantAgentFlow = void 0;
+exports.customerAgent = void 0;
 const z = __importStar(require("zod"));
 // Import the Genkit core libraries and plugins.
 const ai_1 = require("@genkit-ai/ai");
@@ -32,7 +32,6 @@ const flow_1 = require("@genkit-ai/flow");
 const vertexai_1 = require("@genkit-ai/vertexai");
 // Import models from the Vertex AI plugin. The Vertex AI API provides access to
 // several generative models. Here, we import Gemini 1.5 Flash.
-const restaurantTools_1 = require("./tools/restaurantTools");
 const grocerTools_1 = require("./tools/grocerTools");
 (0, core_1.configureGenkit)({
     plugins: [
@@ -46,34 +45,7 @@ const grocerTools_1 = require("./tools/grocerTools");
     // Perform OpenTelemetry instrumentation and enable trace collection.
     enableTracingAndMetrics: true,
 });
-// Define a simple flow that prompts an LLM to generate menu suggestions.
-exports.restaurantAgentFlow = (0, flow_1.defineFlow)({
-    name: 'restaurantAgentFlow',
-    inputSchema: z.string(),
-    outputSchema: z.string(),
-}, async (request) => {
-    // Construct a request and send it to the model API.
-    const llmResponse = await (0, ai_1.generate)({
-        prompt: `
-      You are the operations manager for a restaurant. Help answer the questions that
-      the restaurant owner has about the restaurants sales and products.
-
-      PLEASE DON'T HALLUCINATE. YOU MUST ANSWER USING THE TOOL RESULTS
-
-      MANAGER REQUEST : ${request}
-      `,
-        model: vertexai_1.gemini15Flash,
-        config: {
-            temperature: 1,
-        },
-        tools: [restaurantTools_1.listAllProducts, restaurantTools_1.listAllUsers, restaurantTools_1.ordersByDateRange, restaurantTools_1.getAllReviews, restaurantTools_1.getAllOrders, restaurantTools_1.userById, restaurantTools_1.reviewsDateRange]
-    });
-    // Handle the response from the model API. In this sample, we just convert
-    // it to a string, but more complicated flows might coerce the response into
-    // structured output or chain the response into another LLM call, etc.
-    return llmResponse.text();
-});
-// Define a simple flow that prompts an LLM to generate menu suggestions.
+// A simple flow.
 exports.customerAgent = (0, flow_1.defineFlow)({
     name: 'customerAgent',
     inputSchema: z.string(),

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ingredientReplacement = exports.findStoreItems = exports.generateRecipie = void 0;
 const ai_1 = require("@genkit-ai/ai");
 const vertexai_1 = require("@genkit-ai/vertexai");
-const dc_1 = require("@restaurants/dc");
+const dc_1 = require("@grocer/dc");
 const zod_1 = require("zod");
 const dataconnect_1 = require("../config/dataconnect");
 const dc = (0, dataconnect_1.getDataconnectClient)();

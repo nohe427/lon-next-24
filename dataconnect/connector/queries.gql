@@ -12,9 +12,3 @@ query ListStoreItems($query: String!) @auth(level: PUBLIC) {
     msrp
   }
 }
-
-query ListAllStoreItemsLimit($offset: Int!) @auth(level: PUBLIC) {
-  storeItems(limit: 5000, offset: $offset) {
-    ref
-  }
-}

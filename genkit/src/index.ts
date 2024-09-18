@@ -8,7 +8,6 @@ import { gemini15Flash, gemini15Pro, vertexAI } from '@genkit-ai/vertexai';
 
 // Import models from the Vertex AI plugin. The Vertex AI API provides access to
 // several generative models. Here, we import Gemini 1.5 Flash.
-import { getAllOrders, getAllReviews, listAllProducts, listAllUsers, ordersByDateRange, reviewsDateRange, userById } from './tools/restaurantTools';
 import {findStoreItems, generateRecipie, ingredientReplacement} from './tools/grocerTools'
 
 configureGenkit({
@@ -24,39 +23,7 @@ configureGenkit({
   enableTracingAndMetrics: true,
 });
 
-// Define a simple flow that prompts an LLM to generate menu suggestions.
-export const restaurantAgentFlow = defineFlow(
-  {
-    name: 'restaurantAgentFlow',
-    inputSchema: z.string(),
-    outputSchema: z.string(),
-  },
-  async (request) => {
-		// Construct a request and send it to the model API.
-    const llmResponse = await generate({
-      prompt: `
-      You are the operations manager for a restaurant. Help answer the questions that
-      the restaurant owner has about the restaurants sales and products.
-
-      PLEASE DON'T HALLUCINATE. YOU MUST ANSWER USING THE TOOL RESULTS
-
-      MANAGER REQUEST : ${request}
-      `,
-      model: gemini15Flash,
-      config: {
-        temperature: 1,
-      },
-      tools: [listAllProducts, listAllUsers, ordersByDateRange, getAllReviews, getAllOrders, userById, reviewsDateRange]
-    });
-
-		// Handle the response from the model API. In this sample, we just convert
-    // it to a string, but more complicated flows might coerce the response into
-    // structured output or chain the response into another LLM call, etc.
-    return llmResponse.text();
-  }
-);
-
-// Define a simple flow that prompts an LLM to generate menu suggestions.
+// A simple flow.
 export const customerAgent = defineFlow(
   {
     name: 'customerAgent',

@@ -1,6 +1,6 @@
 import { defineTool, generate } from "@genkit-ai/ai";
 import { gemini15Flash, gemini15Pro } from "@genkit-ai/vertexai";
-import { listStoreItems } from "@restaurants/dc";
+import { listStoreItems } from "@grocer/dc";
 import { z } from "zod";
 import { getDataconnectClient } from "../config/dataconnect";
 

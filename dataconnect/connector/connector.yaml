@@ -1,8 +1,6 @@
 connectorId: default
 authMode: PUBLIC
 generate:
-  llmTools:
-    outputFile: ../../tools.json
   javascriptSdk:
     outputDir: ../../generatedGrocer/javascript/default
     package: "@grocer/dc"

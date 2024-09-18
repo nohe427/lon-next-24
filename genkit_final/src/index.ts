@@ -4,7 +4,7 @@ import * as z from 'zod';
 import { generate } from '@genkit-ai/ai';
 import { configureGenkit } from '@genkit-ai/core';
 import { defineFlow, startFlowsServer } from '@genkit-ai/flow';
-import { gemini15Pro, vertexAI } from '@genkit-ai/vertexai';
+import { gemini15Flash, gemini15Pro, vertexAI } from '@genkit-ai/vertexai';
 
 // Import models from the Vertex AI plugin. The Vertex AI API provides access to
 // several generative models. Here, we import Gemini 1.5 Flash.
@@ -23,7 +23,7 @@ configureGenkit({
   enableTracingAndMetrics: true,
 });
 
-// Define a simple flow that prompts an LLM to generate menu suggestions.
+// A simple flow.
 export const customerAgent = defineFlow(
   {
     name: 'customerAgent',

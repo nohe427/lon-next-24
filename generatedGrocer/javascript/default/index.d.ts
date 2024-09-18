@@ -10,27 +10,13 @@ export type Int64String = string;
 export type DateString = string;
 
 
-export interface CreateStoreItemResponse {
-  storeItem_insert: StoreItem_Key;
+export interface ChangeAisleResponse {
+  storeItem_update?: StoreItem_Key | null;
 }
 
-export interface CreateStoreItemVariables {
+export interface ChangeAisleVariables {
   ref: string;
-  name: string;
-  aisle: number;
-  cat: string;
-  msrp: number;
-  embeddingAttr: string;
-}
-
-export interface ListAllStoreItemsLimitResponse {
-  storeItems: ({
-    ref: string;
-  } & StoreItem_Key)[];
-}
-
-export interface ListAllStoreItemsLimitVariables {
-  offset: number;
+  newAisle: number;
 }
 
 export interface ListStoreItemsResponse {
@@ -55,12 +41,12 @@ export interface StoreItem_Key {
 
 
 /* Allow users to create refs without passing in DataConnect */
-export function createStoreItemRef(vars: CreateStoreItemVariables): MutationRef<CreateStoreItemResponse, CreateStoreItemVariables>;
+export function changeAisleRef(vars: ChangeAisleVariables): MutationRef<ChangeAisleResponse, ChangeAisleVariables>;
 /* Allow users to pass in custom DataConnect instances */
-export function createStoreItemRef(dc: DataConnect, vars: CreateStoreItemVariables): MutationRef<CreateStoreItemResponse,CreateStoreItemVariables>;
+export function changeAisleRef(dc: DataConnect, vars: ChangeAisleVariables): MutationRef<ChangeAisleResponse,ChangeAisleVariables>;
 
-export function createStoreItem(vars: CreateStoreItemVariables): MutationPromise<CreateStoreItemResponse, CreateStoreItemVariables>;
-export function createStoreItem(dc: DataConnect, vars: CreateStoreItemVariables): MutationPromise<CreateStoreItemResponse,CreateStoreItemVariables>;
+export function changeAisle(vars: ChangeAisleVariables): MutationPromise<ChangeAisleResponse, ChangeAisleVariables>;
+export function changeAisle(dc: DataConnect, vars: ChangeAisleVariables): MutationPromise<ChangeAisleResponse,ChangeAisleVariables>;
 
 
 /* Allow users to create refs without passing in DataConnect */
@@ -70,14 +56,5 @@ export function listStoreItemsRef(dc: DataConnect, vars: ListStoreItemsVariables
 
 export function listStoreItems(vars: ListStoreItemsVariables): QueryPromise<ListStoreItemsResponse, ListStoreItemsVariables>;
 export function listStoreItems(dc: DataConnect, vars: ListStoreItemsVariables): QueryPromise<ListStoreItemsResponse,ListStoreItemsVariables>;
-
-
-/* Allow users to create refs without passing in DataConnect */
-export function listAllStoreItemsLimitRef(vars: ListAllStoreItemsLimitVariables): QueryRef<ListAllStoreItemsLimitResponse, ListAllStoreItemsLimitVariables>;
-/* Allow users to pass in custom DataConnect instances */
-export function listAllStoreItemsLimitRef(dc: DataConnect, vars: ListAllStoreItemsLimitVariables): QueryRef<ListAllStoreItemsLimitResponse,ListAllStoreItemsLimitVariables>;
-
-export function listAllStoreItemsLimit(vars: ListAllStoreItemsLimitVariables): QueryPromise<ListAllStoreItemsLimitResponse, ListAllStoreItemsLimitVariables>;
-export function listAllStoreItemsLimit(dc: DataConnect, vars: ListAllStoreItemsLimitVariables): QueryPromise<ListAllStoreItemsLimitResponse,ListAllStoreItemsLimitVariables>;
 
 

@@ -1,44 +1,38 @@
-import { getDataConnect, queryRef, executeQuery, mutationRef, executeMutation, validateArgs } from 'firebase/data-connect';
+import { getDataConnect, queryRef, executeQuery, mutationRef, executeMutation } from 'firebase/data-connect';
 
 export const connectorConfig = {
   connector: 'default',
-  service: 'lon-next',
+  service: 'local',
   location: 'us-central1'
 };
 
-export function createStoreItemRef(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  if('_useGeneratedSdk' in dcInstance) {
-    dcInstance._useGeneratedSdk();
-  } else {
-    console.error('Please update to the latest version of the Data Connect SDK by running `npm install firebase@dataconnect-preview`.');
-  }
-  return mutationRef(dcInstance, 'CreateStoreItem', inputVars);
+export function changeAisleRef(dcOrVars, vars) {
+  const { dc: dcInstance, vars: inputVars} = validateArgs(dcOrVars, vars, true);
+  return mutationRef(dcInstance, 'ChangeAisle', inputVars);
 }
-export function createStoreItem(dcOrVars, vars) {
-  return executeMutation(createStoreItemRef(dcOrVars, vars));
+export function changeAisle(dcOrVars, vars) {
+  return executeMutation(changeAisleRef(dcOrVars, vars));
 }
 export function listStoreItemsRef(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  if('_useGeneratedSdk' in dcInstance) {
-    dcInstance._useGeneratedSdk();
-  } else {
-    console.error('Please update to the latest version of the Data Connect SDK by running `npm install firebase@dataconnect-preview`.');
-  }
+  const { dc: dcInstance, vars: inputVars} = validateArgs(dcOrVars, vars, true);
   return queryRef(dcInstance, 'ListStoreItems', inputVars);
 }
 export function listStoreItems(dcOrVars, vars) {
   return executeQuery(listStoreItemsRef(dcOrVars, vars));
 }
-export function listAllStoreItemsLimitRef(dcOrVars, vars) {
-  const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
-  if('_useGeneratedSdk' in dcInstance) {
-    dcInstance._useGeneratedSdk();
+function validateArgs(dcOrVars, vars, validateVars) {
+  let dcInstance;
+  let realVars;
+  // TODO; Check what happens if this is undefined.
+  if(dcOrVars && 'dataConnectOptions' in dcOrVars) {
+      dcInstance = dcOrVars;
+      realVars = vars;
   } else {
-    console.error('Please update to the latest version of the Data Connect SDK by running `npm install firebase@dataconnect-preview`.');
+      dcInstance = getDataConnect(connectorConfig);
+      realVars = dcOrVars;
   }
-  return queryRef(dcInstance, 'ListAllStoreItemsLimit', inputVars);
-}
-export function listAllStoreItemsLimit(dcOrVars, vars) {
-  return executeQuery(listAllStoreItemsLimitRef(dcOrVars, vars));
+  if(!dcInstance || (!realVars && validateVars)) {
+      throw new Error('You didn\t pass in the vars!');
+  }
+  return { dc: dcInstance, vars: realVars };
 }
