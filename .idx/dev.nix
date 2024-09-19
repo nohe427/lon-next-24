@@ -70,6 +70,7 @@
           downloadDb = ''
             curl -o local.zip 'https://firebasestorage.googleapis.com/v0/b/yt-rag.appspot.com/o/genkit%2FlonNext%2Flocal.zip?alt=media&token=49f61fea-df00-4796-96b6-696ff72fa426'
             unzip local.zip -d .
+            chmod 0750 local
           '';
           install-genkit-folder = ''
           cd genkit
