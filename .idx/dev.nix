@@ -38,10 +38,8 @@
       # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
       extensions = [
         # "vscodevim.vim"
-        "Dart-Code.flutter"
         "mtxr.sqltools-driver-pg"
         "mtxr.sqltools"
-        "mtxr.sqltools-driver-pg"
         "GraphQL.vscode-graphql-syntax"
         "${firebase-ext}"
       ];
