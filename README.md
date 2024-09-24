@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-* A GCP Project with Vertex AI already configured
+* A GCP Project with [Vertex AI already configured](https://console.cloud.google.com/vertex-ai?project=_)
 * A browser
 
 ## Open in IDX
