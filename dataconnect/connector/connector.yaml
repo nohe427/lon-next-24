@@ -2,5 +2,5 @@ connectorId: default
 authMode: PUBLIC
 generate:
   javascriptSdk:
-    outputDir: ../../generatedGrocer/javascript/default
+    outputDir: ../../genkit/generatedGrocer/javascript/default
     package: "@grocer/dc"

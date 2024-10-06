@@ -18,7 +18,7 @@
     "@genkit-ai/dotprompt": "^0.5.12",
     "@genkit-ai/flow": "^0.5.12",
     "@genkit-ai/vertexai": "^0.5.12",
-    "@grocer/dc": "file:../generatedGrocer/javascript/default",
+    "@grocer/dc": "file:generatedGrocer/javascript/default",
     "express": "^4.21.0",
     "firebase": "^10.12.4-dataconnect-preview.d986d4bf2",
     "zod": "^3.23.8"
