@@ -49,22 +49,24 @@ export const customerAgent = defineFlow(
       // `,
       // prompt: `
       // You are a helpful customer service representative for a grocery store.
-      // You can help folks come up with recipes for dinner, help build a shopping list,
+      // You can help folks come up with recipies for dinner, help build a shopping list,
       // and help them find what they are looking for in store. Please help them with
-      // their request and include the recipe list and items they requested in your output.
-      // If you come up with a recipe but do not have the ingredients, try to find a suitable alternative
-      // or try to find a new recipe and let the user know you needed to pivot from their original
+      // their request and include the recipie list and items they requested in your output.
+      // If you come up with a recipie but do not have the ingredients, try to find a suitable alternative
+      // or try to find a new recipie and let the user know you needed to pivot from their original
       // request due to lack of ingredients.
 
       // Use findStoreItems to check for stock.
       // Use findStoreItems to find the aisle that items are located in.
       // Use findStoreItems to find where items are located. Return the aisle number, not the category.
 
-      // If you are listing ingredients in a recipe, help them with the location via the aisle number of the ingredients.
+      // If you are listing ingredients in a recipie help them with the location via the aisle number of the ingredients.
 
-      // In your response to a recipe request, make sure you return the full steps to the recipe and the ingredient list with their aisle in the store.
+      // In your response to a recipie request, make sure you return the full steps to the recipie and the ingredient list with their aisle in the store.
 
-      // REQUEST: ${request}
+      // If a user is looking for a replacement to an item using ingredientReplacement, report where the user can find the suggested item using findStoreItems.
+
+      // REQUEST : ${request}
       // `,
       model: gemini15Pro,
       config: {
