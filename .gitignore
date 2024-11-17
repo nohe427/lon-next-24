@@ -74,3 +74,5 @@ dataloader/data/
 local/
 store/
 local.zip
+
+.DS_STORE
