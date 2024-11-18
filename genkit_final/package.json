@@ -13,15 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@genkit-ai/ai": "^0.5.12",
-    "@genkit-ai/core": "^0.5.12",
-    "@genkit-ai/dotprompt": "^0.5.12",
-    "@genkit-ai/flow": "^0.5.12",
-    "@genkit-ai/vertexai": "^0.5.12",
+    "@genkit-ai/vertexai": "^0.9.2",
     "@grocer/dc": "file:generatedGrocer/javascript/default",
     "express": "^4.21.0",
-    "firebase": "^10.12.4-dataconnect-preview.d986d4bf2",
-    "zod": "^3.23.8"
+    "firebase": "^11.0.2",
+    "genkit": "^0.9.2"
   },
   "devDependencies": {
     "typescript": "^5.6.2"

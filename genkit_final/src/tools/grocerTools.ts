@@ -1,12 +1,12 @@
-import { defineTool, generate } from "@genkit-ai/ai";
-import { gemini15Flash, gemini15Pro } from "@genkit-ai/vertexai";
 import { listStoreItems } from "@grocer/dc";
-import { z } from "zod";
 import { getDataconnectClient } from "../config/dataconnect";
+import { ai } from '../config/ai';
+import { gemini15Flash, gemini15Pro } from "@genkit-ai/vertexai";
+import { z } from 'genkit';
 
 const dc = getDataconnectClient();
 
-export const generateRecipie = defineTool({
+export const generateRecipie = ai.defineTool({
     name: 'generateRecipie',
     description: 'Used to generate a recipie and a list of grocery items that need to be purchased to make the item. If no input is provided, come up with an american themed dish',
     // Define input and output schema so the model knows how to use the tool
@@ -17,7 +17,7 @@ export const generateRecipie = defineTool({
     }).optional().describe('a recipie for a meal item'),
 },
     async (input) => {
-        const result = await generate({
+        const result = await ai.generate({
             model: gemini15Flash,
             prompt: `
     Generate a recipie that most people could make at home with ingredients they would find in a local grocery store.
@@ -34,15 +34,15 @@ export const generateRecipie = defineTool({
             },
           });
 
-          if (result.output() == null) {
+          if (result.output == null) {
             return {recipie: "", ingredients: []}
           }
         
-          return {recipie: result.output()!.recipie, ingredients: result.output()!.ingredients};
+          return {recipie: result.output!.recipie, ingredients: result.output!.ingredients};
     }
 );
 
-export const findStoreItems = defineTool({
+export const findStoreItems = ai.defineTool({
     name: 'findStoreItems',
     description: 'used to locate the aisle of items in the store that need to be purchased for a recipie or as part of a shopppers trip to a store. name is the item name and category is the likely category that item would reside in wihtin a supermarket',
     inputSchema: z.object({itemName: z.string().describe('the name of the item'), itemCategory: z.string().describe('the likely category this item lives in')}),
@@ -58,7 +58,7 @@ export const findStoreItems = defineTool({
     }
 )
 
-export const ingredientReplacement = defineTool({
+export const ingredientReplacement = ai.defineTool({
     name: 'ingredientReplacement',
     description: 'used to generate a replacement or alternative ingredient',
     inputSchema: z.object({outOfStockIngredient: z.string()}),
@@ -67,7 +67,7 @@ export const ingredientReplacement = defineTool({
     })
 },
     async (input) => {
-        const result = await generate({
+        const result = await ai.generate({
             model: gemini15Pro,
             prompt: `
     Fetch a list of possible alternatives for ${input.outOfStockIngredient}
@@ -80,10 +80,10 @@ export const ingredientReplacement = defineTool({
             },
           });
 
-          if (result.output() == null) {
+          if (result.output == null) {
             return {alternatives: [],}
           }
         
-          return {alternatives: result.output()!.alternatives};
+          return {alternatives: result.output!.alternatives};
     }
 );
