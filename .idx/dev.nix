@@ -1,18 +1,13 @@
 # To learn more about how to use Nix to configure your environment
 # see: https://developers.google.com/idx/guides/customize-idx-env
 { pkgs, ... }:
-    let firebase-ext = pkgs.fetchurl {
-    url =
-      "https://firebasestorage.googleapis.com/v0/b/firemat-preview-drop/o/vsix%2Ffirebase-vscode-0.2.8.vsix?alt=media&token=ba272e6e-c6b3-4860-bc2a-cd5b9cd7e022";
-    hash = "sha256-n4D70K61vThL3Tdjq1lq2Z/+4CBLtRj7ePY8uiv0taw=";
-    name = "firebase.vsix";
-  };
-  in {
+  {
     # Which nixpkgs channel to use.
     channel = "stable-23.11"; # or "unstable"
 
     # Use https://search.nixos.org/packages to find packages
     packages = [
+      pkgs.nodePackages.firebase-tools
       pkgs.jdk17
       pkgs.unzip
       (pkgs.postgresql_15.withPackages (p: [ p.pgvector ]))
@@ -22,16 +17,17 @@
       pkgs.bun
       pkgs.zip
       pkgs.curl
+      
     ];
 
     # Sets environment variables in the workspace
     env = {
-      POSTGRESQL_CONN_STRING = "postgresql://user:mypassword@localhost:5432/dataconnect?sslmode=disable";
+      FIREBASE_DATACONNECT_POSTGRESQL_STRING = "postgresql://user:mypassword@localhost:5432/dataconnect?sslmode=disable";
       FIRESQL_PORT = "9939";
     };
     processes = {
       postgresRun = {
-        command = "postgres -D ./local -k /tmp";
+        command = "postgretdas -D ./local -k /tmp";
       };
     };
     idx = {
@@ -41,7 +37,7 @@
         "mtxr.sqltools-driver-pg"
         "mtxr.sqltools"
         "GraphQL.vscode-graphql-syntax"
-        "${firebase-ext}"
+        "GoogleCloudTools.firebase-dataconnect-vscode"
       ];
 
       # Enable previews
@@ -90,5 +86,5 @@
           # watch-backend = "npm run watch-backend";
         };
       };
-    };
+  };
   }
