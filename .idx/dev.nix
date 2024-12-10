@@ -27,7 +27,7 @@
     };
     processes = {
       postgresRun = {
-        command = "postgretdas -D ./local -k /tmp";
+        command = "postgres -D ./local -k /tmp";
       };
     };
     idx = {
